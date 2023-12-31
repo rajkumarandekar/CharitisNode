@@ -1,5 +1,8 @@
 const express = require("express");
 
+const dotenv = require("dotenv");
+dotenv.config();
+
 const app = express();
 
 const port = 6000;
@@ -7,7 +10,7 @@ const mongoose = require("mongoose");
 
 mongoose
   .connect(
-    "mongodb+srv://rajkumarnilakanta53552:raju2804123@cluster0.3hen9rb.mongodb.net/?retryWrites=true&w=majority",
+    process.env.MONGO_URL,
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
