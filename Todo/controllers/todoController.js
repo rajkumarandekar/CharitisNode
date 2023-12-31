@@ -42,6 +42,30 @@ const todoController = {
       res.status(500).json({ message: "Error fetching todo" });
     }
   },
+
+  updateTodoById: async (req, res) => {
+    const { id } = req.params;
+    const { text } = req.body;
+
+    try {
+      const updatedTodo = await Todo.findByIdAndUpdate(
+        id,
+        { text },
+        { new: true }
+      );
+
+      if (!updatedTodo) {
+        return res.status(404).json({ message: "Todo not found" });
+      }
+
+      res
+        .status(200)
+        .json({ message: "Todo updated successfully", todo: updatedTodo });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Error updating todo" });
+    }
+  },
 };
 
 module.exports = todoController;
