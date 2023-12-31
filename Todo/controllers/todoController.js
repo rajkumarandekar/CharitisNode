@@ -25,6 +25,23 @@ const todoController = {
       res.status(500).json({ message: "Error creating todo" });
     }
   },
+
+  getTodoById: async (req, res) => {
+    const { id } = req.params;
+
+    try {
+      const todo = await Todo.findById(id);
+
+      if (!todo) {
+        return res.status(404).json({ message: "Todo not found" });
+      }
+
+      res.status(200).json({ todo });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Error fetching todo" });
+    }
+  },
 };
 
 module.exports = todoController;
